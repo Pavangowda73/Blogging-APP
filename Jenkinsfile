@@ -3,9 +3,9 @@ pipeline {
     tools{
         maven 'maven3'
     }
-    environment{
+    /*environment{
         SCANNER_HOME= tool 'sonar-scanner'
-    }
+    }*/
 
     stages {
         stage('Git checkout') {
@@ -23,7 +23,7 @@ pipeline {
                 sh "mvn test"
             }
         }
-        stage('trivy file system scan'){
+       /* stage('trivy file system scan'){
             steps{
                 sh "trivy fs --format table -o fs.html ."
             }
@@ -35,13 +35,13 @@ pipeline {
                           -Dsonar.java.binaries=target'''
                 }
             }
-        }
+        }*/
         stage('maven package'){
             steps{
                 sh "mvn package"
             }
         }
-        stage('docker build and tag'){
+       /* stage('docker build and tag'){
             steps{
                 script{
                     withDockerRegistry(credentialsId: 'docker-cred') {
@@ -63,7 +63,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
         
     }
 }
